@@ -14,7 +14,7 @@
         socket.on("connect", () => {
             socket.emit("join_room", {
                 username: "{{username}}",
-                room: "{{room}}",
+                room: "{{room._id}}",
             });
             let message_input = document.getElementById("message_input");
             document.getElementById("message_input_form").onsubmit = (e) => {
@@ -23,7 +23,7 @@
                 if (message_input.value.length) {
                     socket.emit("send_message", {
                         username: "{{username}}",
-                        room: "{{room}}",
+                        room: "{{room._id}}",
                         message: message,
                     });
                 }
@@ -35,13 +35,14 @@
         window.onbeforeunload = () => {
             socket.emit('leave_room', {
                 username: "{{username}}",
-                room: "{{room}}"
+                room: "{{room._id}}"
             });
         };
 
         socket.on("join_room_notice", (data) => {
+            console.log(data);
             const newNode = document.createElement("div");
-            newNode.innerHTML = `<b>${data.username}</b> has joined the ${data.room} room`;
+            newNode.innerHTML = `<b>${data.username}</b> has joined the {{room.name}} room`;
             document.getElementById("messages").appendChild(newNode);
         });
 
@@ -53,12 +54,12 @@
 
         socket.on('left_room_notice', (data) => {
             const newNode = document.createElement('div');
-            newNode.innerHTML = `<b>${data.username}</b> has left the ${data.room} room`;
+            newNode.innerHTML = `<b>${data.username}</b> has left the {{room.name}} room`;
             document.getElementById("messages").appendChild(newNode);
         });
     </script>
     <h1>This is chat.html</h1>
-    <h2>Welcome {{username}} to chat room: {{room}}</h2>
+    <h2>Welcome {{username}} to chat room: {{room.name}}</h2>
     <div id="messages"></div>
     <div>
         <form id="message_input_form" action="">

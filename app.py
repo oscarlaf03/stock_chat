@@ -4,7 +4,9 @@ from flask_login import (LoginManager, current_user, login_required,
 from flask_socketio import SocketIO, join_room, leave_room
 from pymongo.errors import DuplicateKeyError
 
-from db import add_room_members, get_user, save_room, save_user, add_room_members
+from db import (add_room_members, get_room, get_room_members,
+                get_rooms_for_user, get_user, is_room_member, save_room,
+                save_user, get_room_members)
 from models.user import User
 
 app = Flask(__name__)
@@ -16,7 +18,11 @@ login_manager.init_app(app)
 
 @app.route('/')
 def home():
-    return render_template('index.html')
+    rooms = []
+    if current_user.is_authenticated:
+        rooms = get_rooms_for_user(current_user.username)
+    return render_template('index.html', rooms=rooms)
+
 
 @app.route('/login', methods=['GET', 'POST'])
 def login():
@@ -24,7 +30,7 @@ def login():
     if request.method == 'POST':
         username = request.form.get('username')
         password_input = request.form.get('password')
-        user = get_user(username )
+        user = get_user(username)
         if user and user.check_password(password_input):
             login_user(user)
             return redirect(url_for('home'))
@@ -33,42 +39,52 @@ def login():
 
     return render_template('login.html', message=message)
 
+
 @app.route('/logout')
 @login_required
 def logout():
     logout_user()
     return redirect(url_for('home'))
 
-@app.route('/create-room/',methods=['GET','POST'])
+
+@app.route('/create-room/', methods=['GET', 'POST'])
 @login_required
 def create_room():
-    message=''
+    message = ''
     if request.method == 'POST':
         room_name = request.form.get('room_name')
-        usernames = [ username.strip() for username in request.form.get('members').split(',') ]
+        usernames = [username.strip()
+                     for username in request.form.get('members').split(',')]
         if len(room_name) and len(usernames):
             room_id = save_room(room_name, current_user.username)
             if current_user.username in usernames:
                 usernames.remove(current_user.username)
-            add_room_members(room_id, room_name, usernames, current_user.username)
+            add_room_members(room_id, room_name, usernames,
+                             current_user.username)
         else:
             message = 'Failed to create room'
 
     return render_template('create_room.html', message=message)
 
-@app.route('/chat')
-def chat():
-    username = request.args.get('username')
-    room = request.args.get('room')
-    if username and room:
-        return render_template('chat.html', username=username, room=room)
+
+@app.route('/rooms/<room_id>/')
+def view_room(room_id):
+    # username = request.args.get('username')
+    # room = request.args.get('room')
+    username = current_user.username
+    room = get_room(room_id)
+    if room and is_room_member(room_id, current_user.username):
+        room_members = get_room_members(room_id)
+        return render_template('view_room.html', username=username, room=room, room_members=room_members)
     else:
-        return redirect(url_for('home'))
+        return "Room not found", 404
+        # return redirect(url_for('home'))
 
 @socketio.on('send_message')
 def handle_send_message(data):
-    app.logger.info(f'{data["username"]} has sent a message to the room: {data["room"]} : {data["message"]}')
-    socketio.emit('received_message',data, room=data['room'])
+    app.logger.info(
+        f'{data["username"]} has sent a message to the room: {data["room"]} : {data["message"]}')
+    socketio.emit('received_message', data, room=data['room'])
 
 
 @socketio.on('join_room')
@@ -77,18 +93,20 @@ def handle_join_room_event(data):
     join_room(data['room'])
     socketio.emit('join_room_notice', data)
 
+
 @socketio.on('leave_room')
 def handle_left_room_event(data):
     app.logger.info(f'{data["username"]} has left the {data["room"]} room')
     leave_room(data['room'])
     socketio.emit('left_room_notice', data)
 
+
 @login_manager.user_loader
 def load_user(username):
     return get_user(username)
 
 
-@app.route('/signup',methods=['GET','POST'])
+@app.route('/signup', methods=['GET', 'POST'])
 def signup():
     message = ''
     if request.method == 'POST':
@@ -96,12 +114,10 @@ def signup():
         email = request.form.get('email')
         password = request.form.get('password')
         try:
-            save_user(username,email,password)
+            save_user(username, email, password)
         except DuplicateKeyError:
-            message='Sorry, that user name is already taken'
+            message = 'Sorry, that user name is already taken'
     return render_template('signup.html', message=message)
-
-
 
 
 if __name__ == '__main__':
