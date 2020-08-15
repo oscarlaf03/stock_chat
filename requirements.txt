@@ -1,3 +1,6 @@
 flask
 flask-socket.io
 eventlet
+pymongo
+dnspython
+werkzeug
