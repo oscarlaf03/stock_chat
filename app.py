@@ -1,8 +1,9 @@
 from flask import Flask, redirect, render_template, request, url_for
-from flask_login import LoginManager, login_required, login_user, logout_user, login_required
+from flask_login import LoginManager, login_required, login_user, logout_user
 from flask_socketio import SocketIO, join_room, leave_room
+from pymongo.errors import DuplicateKeyError
 
-from db import get_user
+from db import get_user, save_user
 from models.user import User
 
 app = Flask(__name__)
@@ -68,6 +69,19 @@ def handle_left_room_event(data):
 def load_user(username):
     return get_user(username)
 
+
+@app.route('/signup',methods=['GET','POST'])
+def signup():
+    message = ''
+    if request.method == 'POST':
+        username = request.form.get('username')
+        email = request.form.get('email')
+        password = request.form.get('password')
+        try:
+            save_user(username,email,password)
+        except DuplicateKeyError:
+            message='Sorry, that user name is already taken'
+    return render_template('signup.html', message=message)
 
 if __name__ == '__main__':
     socketio.run(app, debug=True)
