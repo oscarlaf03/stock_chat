@@ -39,6 +39,23 @@ def logout():
     logout_user()
     return redirect(url_for('home'))
 
+@app.route('/create-room/',methods=['GET','POST'])
+@login_required
+def create_room():
+    message=''
+    if request.method == 'POST':
+        room_name = request.form.get('room_name')
+        usernames = [ username.strip() for username in request.form.get('members').split(',') ]
+        if len(room_name) and len(usernames):
+            room_id = save_room(room_name, current_user.username)
+            if current_user.username in usernames:
+                usernames.remove(current_user.username)
+            add_room_members(room_id, room_name, usernames, current_user.username)
+        else:
+            message = 'Failed to create room'
+
+    return render_template('create_room.html', message=message)
+
 @app.route('/chat')
 def chat():
     username = request.args.get('username')
@@ -84,22 +101,7 @@ def signup():
             message='Sorry, that user name is already taken'
     return render_template('signup.html', message=message)
 
-@app.route('/create-room',methods=['GET','POST'])
-@login_required
-def create_room():
-    message=''
-    if request.method == 'POST':
-        room_name = request.form.get('room_name')
-        usernames =[ username.strip() for username in request.form.get('members').split(',')]
-        if len(room_name) and len(usernames):
-            room_id = save_room(room_name, current_user.username)
-            if current_user.username in usernames:
-                usernames.remove(current_user.username)
-            add_room_members(room_id, room_name, usernames, current_user.username )
-        else:
-            message = 'Failed to create room'
 
-    return render_template('create_room.html', message=message)
 
 
 if __name__ == '__main__':
