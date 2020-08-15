@@ -4,3 +4,4 @@ eventlet
 pymongo
 dnspython
 werkzeug
+flask-login
