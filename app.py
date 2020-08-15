@@ -1,6 +1,6 @@
 from flask import Flask, redirect, render_template, request, url_for
 from flask_login import LoginManager, login_required, login_user, logout_user, login_required
-from flask_socketio import SocketIO, join_room
+from flask_socketio import SocketIO, join_room, leave_room
 
 from db import get_user
 from models.user import User
@@ -58,6 +58,11 @@ def handle_join_room_event(data):
     join_room(data['room'])
     socketio.emit('join_room_notice', data)
 
+@socketio.on('leave_room')
+def handle_left_room_event(data):
+    app.logger.info(f'{data["username"]} has left the {data["room"]} room')
+    leave_room(data['room'])
+    socketio.emit('left_room_notice', data)
 
 @login_manager.user_loader
 def load_user(username):

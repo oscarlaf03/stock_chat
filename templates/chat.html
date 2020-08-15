@@ -4,7 +4,7 @@
 <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Document</title>
+    <title>Stock chat</title>
 </head>
 
 <body>
@@ -32,6 +32,13 @@
             };
         });
 
+        window.onbeforeunload = () => {
+            socket.emit('leave_room', {
+                username: "{{username}}",
+                room: "{{room}}"
+            });
+        };
+
         socket.on("join_room_notice", (data) => {
             const newNode = document.createElement("div");
             newNode.innerHTML = `<b>${data.username}</b> has joined the ${data.room} room`;
@@ -42,6 +49,12 @@
             const newNode = document.createElement('div');
             newNode.innerHTML = `<b>${data.username}:&nbsp;</b> ${data.message} `;
             document.getElementById('messages').appendChild(newNode);
+        });
+
+        socket.on('left_room_notice', (data) => {
+            const newNode = document.createElement('div');
+            newNode.innerHTML = `<b>${data.username}</b> has left the ${data.room} room`;
+            document.getElementById("messages").appendChild(newNode);
         });
     </script>
     <h1>This is chat.html</h1>
