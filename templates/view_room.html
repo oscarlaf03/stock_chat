@@ -40,15 +40,15 @@
         };
 
         socket.on("join_room_notice", (data) => {
-            console.log(data);
             const newNode = document.createElement("div");
             newNode.innerHTML = `<b>${data.username}</b> has joined the {{room.name}} room`;
             document.getElementById("messages").appendChild(newNode);
         });
 
         socket.on('received_message', (data) => {
+            console.log('received message \n', data)
             const newNode = document.createElement('div');
-            newNode.innerHTML = `<b>${data.username}:&nbsp;</b> ${data.message} `;
+            newNode.innerHTML = `<b>${data.username}:&nbsp;</b>  [${data.created_at}]:&nbsp  ${data.message} `;
             document.getElementById('messages').appendChild(newNode);
         });
 
@@ -60,12 +60,26 @@
     </script>
     <h1>This is chat.html</h1>
     <h2>Welcome {{username}} to chat room: {{room.name}}</h2>
-    <div id="messages"></div>
+    <div id="messages" class='messages container'>
+        {% for message in messages %}
+        <div><b>{{ message.sender }}:&nbsp;</b>[{{message.created_at}}]:&nbsp;{{ message.text }}</div>
+        {% endfor %}
+
+    </div>
     <div>
         <form id="message_input_form" action="">
             <input type="text" id="message_input" placeholder="Enter message here" />
             <button type="submit">Send</button>
         </form>
+    </div>
+    <div class="members-container">
+        <h4>List of chat room members</h4>
+        <ul>
+            {% for member in room_members %}
+            <li>{{ member._id.username }}</li>
+
+            {% endfor %}
+        </ul>
     </div>
 </body>
 

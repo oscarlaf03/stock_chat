@@ -1,4 +1,5 @@
 from flask import Flask, redirect, render_template, request, url_for
+from datetime import datetime
 from flask_login import (LoginManager, current_user, login_required,
                          login_user, logout_user)
 from flask_socketio import SocketIO, join_room, leave_room
@@ -6,7 +7,7 @@ from pymongo.errors import DuplicateKeyError
 
 from db import (add_room_members, get_room, get_room_members,
                 get_rooms_for_user, get_user, is_room_admin, is_room_member,
-                remove_room_members, save_room, save_user, update_room)
+                remove_room_members, save_room, save_user, update_room, save_message, get_messages)
 from models.user import User
 
 app = Flask(__name__)
@@ -105,15 +106,17 @@ def view_room(room_id):
     room = get_room(room_id)
     if room and is_room_member(room_id, current_user.username):
         room_members = get_room_members(room_id)
-        return render_template('view_room.html', username=username, room=room, room_members=room_members)
+        messages = get_messages(room_id)
+        return render_template('view_room.html', username=username, room=room, room_members=room_members, messages=messages)
     else:
         return "Room not found", 404
-        # return redirect(url_for('home'))
 
 @socketio.on('send_message')
 def handle_send_message(data):
     app.logger.info(
         f'{data["username"]} has sent a message to the room: {data["room"]} : {data["message"]}')
+    save_message(data['room'],data['message'],data['username'])
+    data['created_at'] = datetime.now().strftime('%d %b, %H:%M')
     socketio.emit('received_message', data, room=data['room'])
 
 
