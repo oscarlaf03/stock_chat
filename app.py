@@ -5,8 +5,8 @@ from flask_socketio import SocketIO, join_room, leave_room
 from pymongo.errors import DuplicateKeyError
 
 from db import (add_room_members, get_room, get_room_members,
-                get_rooms_for_user, get_user, is_room_member, save_room,
-                save_user, get_room_members)
+                get_rooms_for_user, get_user, is_room_admin, is_room_member,
+                remove_room_members, save_room, save_user, update_room)
 from models.user import User
 
 app = Flask(__name__)
@@ -65,6 +65,36 @@ def create_room():
             message = 'Failed to create room'
 
     return render_template('create_room.html', message=message)
+
+@app.route('/rooms/<room_id>/edit', methods=['GET','POST'])
+@login_required
+def edit_room(room_id):
+    room = get_room(room_id)
+    if room and is_room_admin(room_id, current_user.username):
+        room_members = [ member['_id']['username'] for member in get_room_members(room_id) ]
+        room_members_str = ",".join(room_members)
+        message =''
+        if request.method == 'POST':
+            room_name = request.form.get('room_name')
+            room['name'] = room_name
+            update_room(room_id, room_name)
+            # room = get_room(room_id)
+            request_members = [ username.strip() for username in request.form.get('members').split(',') ]
+            members_to_add =  list(set(request_members) -  set(room_members))
+            members_to_remove =  list(set(room_members) - set(request_members))
+            if len(members_to_add):
+                add_room_members(room_id,room_name, members_to_add, current_user.username)
+
+            if len(members_to_remove):
+                remove_room_members(room_id, members_to_remove)
+
+            room_members_str = ",".join(request_members)
+            message = 'Room edited succesfully'
+
+        return render_template('edit_room.html', room=room, room_members_str=room_members_str, message=message)
+    else:
+        return "Room not found", 404
+
 
 
 @app.route('/rooms/<room_id>/')
