@@ -8,7 +8,7 @@
 </head>
 
 <body>
-    <h1>This is my chat app</h1>
+    <h1> Hi: {% if current_user.is_authenticated %} {{current_user.username}} {% else %} Guest {% endif%} this is my index.htm </h1>
     <form action="/chat">
         <div>
             <label for="">Enter your user name</label>
