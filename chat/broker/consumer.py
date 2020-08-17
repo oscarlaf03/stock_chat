@@ -4,7 +4,7 @@ from ast import literal_eval
 from flask_socketio import SocketIO, emit
 
 
-socketio = SocketIO(message_queue='main_queue')
+socketio = SocketIO( message_queue='main_queue')
 
 connection = pika.BlockingConnection(pika.ConnectionParameters('localhost'))
 channel = connection.channel()

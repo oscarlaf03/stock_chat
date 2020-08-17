@@ -14,7 +14,7 @@ from broker.publisher import Publisher
 
 app = Flask(__name__)
 app.secret_key = 'my_secret_key'
-socketio = SocketIO(app,message_queue='main_queue')
+socketio = SocketIO(app)
 login_manager = LoginManager()
 login_manager.init_app(app)
 
