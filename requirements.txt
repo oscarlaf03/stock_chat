@@ -6,3 +6,5 @@ dnspython
 werkzeug
 flask-login
 bson
+pika
+kumbu

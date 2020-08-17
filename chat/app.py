@@ -9,10 +9,12 @@ from db import (add_room_members, get_room, get_room_members,
                 get_rooms_for_user, get_user, is_room_admin, is_room_member,
                 remove_room_members, save_room, save_user, update_room, save_message, get_messages)
 from models.user import User
+from broker.publisher import Publisher
+
 
 app = Flask(__name__)
 app.secret_key = 'my_secret_key'
-socketio = SocketIO(app)
+socketio = SocketIO(app,message_queue='main_queue')
 login_manager = LoginManager()
 login_manager.init_app(app)
 
@@ -113,6 +115,9 @@ def view_room(room_id):
 
 @socketio.on('send_message')
 def handle_send_message(data):
+    print('*****************')
+    print(data)
+    Publisher(data).publish()
     app.logger.info(
         f'{data["username"]} has sent a message to the room: {data["room"]} : {data["message"]}')
     save_message(data['room'],data['message'],data['username'])
