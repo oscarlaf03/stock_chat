@@ -84,7 +84,6 @@ def edit_room(room_id):
             room_name = request.form.get('room_name')
             room['name'] = room_name
             update_room(room_id, room_name)
-            # room = get_room(room_id)
             request_members = [ username.strip() for username in request.form.get('members').split(',') ]
             members_to_add =  list(set(request_members) -  set(room_members))
             members_to_remove =  list(set(room_members) - set(request_members))
@@ -102,11 +101,8 @@ def edit_room(room_id):
         return "Room not found", 404
 
 
-
 @app.route('/rooms/<room_id>/')
 def view_room(room_id):
-    # username = request.args.get('username')
-    # room = request.args.get('room')
     username = current_user.username
     room = get_room(room_id)
     if room and is_room_member(room_id, current_user.username):

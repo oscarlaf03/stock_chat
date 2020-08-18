@@ -24,13 +24,6 @@ def reply(room,message,msg_from):
         'created_at': datetime.now().strftime('%d %b, %H:%M:%S')
     }, room=room)
 
-# def see_bot(data):
-#     if bot_signal(data['message']):
-#         bot = Bot(data['message'], data['username'])
-#         print('*****BOT MESSAGE******')
-#         print(bot.reply_message())
-#         print('*****END OF BOT MESSAGE******')
-
 def run_data(data):
     if bot_signal(data['message']):
         bot = Bot(data['message'],data['username'])
@@ -41,6 +34,5 @@ def callback(ch, method, properties, body):
     print(" [x] Received %r " % body)
     data = get_data(body)
     run_data(data)
-    # see_bot(data)
     print(f'[x] Done')
     ch.basic_ack(delivery_tag=method.delivery_tag)

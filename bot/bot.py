@@ -1,5 +1,4 @@
 
-# import re  # TODO
 import requests
 
 class Bot:
