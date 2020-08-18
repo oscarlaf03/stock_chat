@@ -117,8 +117,6 @@ def view_room(room_id):
 
 @socketio.on('send_message')
 def handle_send_message(data):
-    print('*****************')
-    print(data)
     Publisher(data).publish()
     app.logger.info(
         f'{data["username"]} has sent a message to the room: {data["room"]} : {data["message"]}')

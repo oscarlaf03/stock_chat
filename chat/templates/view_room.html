@@ -46,7 +46,6 @@
         });
 
         socket.on('received_message', (data) => {
-            console.log(data);
             const newNode = document.createElement('div');
             newNode.innerHTML = `<b>${data.username}:&nbsp;</b>  [${data.created_at}]:&nbsp  ${data.message} `;
             document.getElementById('messages').appendChild(newNode);
