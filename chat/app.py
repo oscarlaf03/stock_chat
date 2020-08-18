@@ -26,10 +26,10 @@ def home():
     rooms = []
     if current_user.is_authenticated:
         rooms = get_rooms_for_user(current_user.username)
-    return render_template('index.html', rooms=rooms)
+    return render_template('index.html', rooms=rooms,rooms_size= len(rooms))
 
 
-@app.route('/login', methods=['GET', 'POST'])
+@app.route('/login/', methods=['GET', 'POST'])
 def login():
     message = ''
     if request.method == 'POST':
@@ -45,7 +45,7 @@ def login():
     return render_template('login.html', message=message)
 
 
-@app.route('/logout')
+@app.route('/logout/')
 @login_required
 def logout():
     logout_user()
@@ -66,12 +66,13 @@ def create_room():
                 usernames.remove(current_user.username)
             add_room_members(room_id, room_name, usernames,
                              current_user.username)
+            return redirect(url_for('home'))
         else:
             message = 'Failed to create room'
 
     return render_template('create_room.html', message=message)
 
-@app.route('/rooms/<room_id>/edit', methods=['GET','POST'])
+@app.route('/rooms/<room_id>/edit/', methods=['GET','POST'])
 @login_required
 def edit_room(room_id):
     room = get_room(room_id)
@@ -154,6 +155,7 @@ def signup():
         password = request.form.get('password')
         try:
             save_user(username, email, password)
+            return redirect(url_for('login'))
         except DuplicateKeyError:
             message = 'Sorry, that user name is already taken'
     return render_template('signup.html', message=message)
