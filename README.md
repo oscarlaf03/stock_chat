@@ -37,8 +37,8 @@ Bot is a very slim class, in about 65 lines of code the bot initiates with a  `m
   * pytest
 
 ### How to run:
-1. install requirements from the root folder **pipenv** strongly advised
-  - `pipenv install -r requirements.txt`
+1. install requirements from the root folder **pipenv** strongly advised,Install dependencies directly from the Pipfile.lock file
+  - `pipenv install --ignore-pipfile`
 2. Start the server using the make command from the root folder:
   - `make runserver`
 3. On another terminal start the worker with make command folder. In order for the Bot to work this worker must be running:
