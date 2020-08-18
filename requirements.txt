@@ -9,3 +9,4 @@ bson
 pika
 redis
 gunicorn
+pytest
