@@ -122,7 +122,8 @@ def handle_send_message(data):
     Publisher(data).publish()
     app.logger.info(
         f'{data["username"]} has sent a message to the room: {data["room"]} : {data["message"]}')
-    save_message(data['room'],data['message'],data['username'])
+    if not data['message'].startswith('/'):
+        save_message(data['room'],data['message'],data['username'])
     data['created_at'] = datetime.now().strftime('%d %b, %H:%M:%S')
     socketio.emit('received_message', data, room=data['room'])
 
