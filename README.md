@@ -23,6 +23,7 @@ Bot is a very slim class, in about 65 lines of code the bot initiates with a  `m
 * RabbitMQ must be installed
 * redis-server must be installed
 * libraries on: **/requirements.txt**
+  * flask
   * flask-socketio
   * eventlet
   * pymongo
