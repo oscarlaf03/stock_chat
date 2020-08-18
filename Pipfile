@@ -7,7 +7,6 @@ verify_ssl = true
 
 [packages]
 eventlet = "*"
-pymongo = "*"
 dnspython = "*"
 pika = "*"
 redis = "*"
@@ -17,6 +16,7 @@ Flask = "*"
 Flask-SocketIO = "*"
 Werkzeug = "*"
 Flask-Login = "*"
+pymongo = "*"
 
 [requires]
 python_version = "3.8"
