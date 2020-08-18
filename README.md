@@ -96,7 +96,7 @@ Now that you have signup enter your new username and password
 
 ##### Welcome
 Your home page looks different when you are logged in. Since you are new here you are not a member of any chat room so might as well create a new chatroom, 
-![Logged](/images/home_logged.png)
+![Logged](/images/hom_logged.png)
 
 ##### Create a Room
 When you create your first chat room you will also decides who is able to join you (don't worry you can make changes later). So don't forget to enter the username of a friend of yours to the chatroom so that you can speak with your friends. (enter multiple usernames separated by ",")  Your friend will need to signup too.
