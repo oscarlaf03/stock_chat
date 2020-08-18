@@ -41,7 +41,7 @@ Bot is a very slim class, in about 65 lines of code the bot initiates with a  `m
   - `pipenv install -r requirements.txt`
 2. Start the server using the make command from the root folder:
   - `make runserver`
-3. On another terminal start the worker with make command folder:
+3. On another terminal start the worker with make command folder.In order for the Bot to work this worker must be running:
   - `make runwoker`
 
 ### Running Tests:
