@@ -57,19 +57,19 @@ When the stock command is properly used everything is sweet `/stock=aapl.us`
 ##### Invalid Command
 
 When the user enters `/{anything but the right command}`
-![Valid command with valid result](/images/invalid_command.png)
+![Invalid Command](/images/invalid_command.png)
 
 ##### Bad Stock symbol Command
 
 When the user enters `/stock={anything but a stock symbol}`
 When you pass stock symbol that doesn't exists the Bot does not find any data on Stooq thus it understand that the data is missing or incomplete and prompts message according to that situation
-![Valid command with valid result](/images/invalid_stock_symbol.png)
+![Invalid stock symbol](/images/invalid_stock_symbol.png)
 
 ##### Forgot to add a symbol
 
 When the user enters `/stock=` The command is a valid one but it has no data thus the Bot notice that mishap 
 
-![Valid command with valid result](/images/missing_stock_symbol.png)
+![Forgot stock symbol](/images/missing_stock_symbol.png)
 
 ## Tutorial
 
@@ -77,39 +77,40 @@ When the user enters `/stock=` The command is a valid one but it has no data thu
 
 ##### Home
 From the home page click on `Signup`
-![Valid command with valid result](/images/home.png)
+
+![Home](/images/home.png)
 
  ##### Signup
 To signup enter your information. The chat app Does not accept duplicated usernames, your username shall become your id for all chat purposes
 
-![Valid command with valid result](/images/signup1.png)
+![Singup](/images/signup1.png)
 
 ##### Login
 Now that you have signup enter your new username and password
 
-![Valid command with valid result](/images/login.png)
+![Login](/images/login.png)
 
 ##### Welcome
 Your home page looks different when you are logged in. Since you are new here you are not a member of any chat room so might as well create a new chatroom, 
-![Valid command with valid result](/images/home_logged.png)
+![Logged](/images/home_logged.png)
 
 ##### Create a Room
 Time to create your first chat room and decides who is able to join you. Don't forget to enter the username of a friend of yours to the chatroom so that you speak with a friend. Your friend will need to signup too.
 
-![Valid command with valid result](/images/create_room.png)
+![Create Room](/images/create_room.png)
 
 ##### Join your Room
 All your rooms appear at your home page, so now that you have room you just need to click on it to join
 
-![Valid command with valid result](/images/home_with_room.png)
+![Join Room](/images/home_with_room.png)
 
 ##### That's it now you are chatting
 You can chat now when everyone on the room including the our Bot
 
-![Valid command with valid result](/images/a_room.png)
+![Chatting](/images/a_room.png)
 
 ##### Talk to your friends right next to you
 Open a side-by-side window to chat with your friends on the same laptop at the same time.. Technolgy really can bring us together!
 
-![Valid command with valid result](/images/side_by_side.png)
+![Side by side](/images/side_by_side.png)
 
