@@ -36,17 +36,21 @@ Bot is a very slim class, in about 65 lines of code the bot initiates with a  `m
   * pytest
 
 ### How to run:
-1. install requirements from the root folder
-  - `pip3 install -r requirements.txt`
+1. install requirements from the root folder **pipenv** strongly advised
+  - `pipenv install -r requirements.txt`
 2. Start the server using the make command from the root folder:
   - `make runserver`
 3. On another terminal start the worker with make command folder:
   - `make runwoker`
 
+### Running Tests:
+* From the root folder run: `pytest`
 
-### How smart is the bot?
+## How smart is the bot?
 
 **Right answer**
 When the stock command is properly used everything is sweet `/stock=aapl.us`
+
+![Valid command with valid result](/images/valid_stock.png)
 
 

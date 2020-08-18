@@ -1,0 +1,23 @@
+[[source]]
+name = "pypi"
+url = "https://pypi.org/simple"
+verify_ssl = true
+
+[dev-packages]
+
+[packages]
+eventlet = "*"
+pymongo = "*"
+dnspython = "*"
+bson = "*"
+pika = "*"
+redis = "*"
+gunicorn = "*"
+pytest = "*"
+Flask = "*"
+Flask-SocketIO = "*"
+Werkzeug = "*"
+Flask-Login = "*"
+
+[requires]
+python_version = "3.8"
