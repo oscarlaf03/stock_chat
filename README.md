@@ -123,6 +123,7 @@ Open a side-by-side window to chat with your friends on the same laptop at the s
 | `http://127.0.0.1:5000` | home |
 | `http://127.0.0.1:5000/login/` | Login |
 | `http://127.0.0.1:5000/signup/` | Signup |
+| `http://127.0.0.1:5000/rooms/create-room` | Creates a room  |
 | `http://127.0.0.1:5000/rooms/<room_id>` | The interactive chat room  |
 | `http://127.0.0.1:5000/rooms/<room_id>/edit` | Edit your chat room |
 | `http://127.0.0.1:5000/logout/` | Logout |
