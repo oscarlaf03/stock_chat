@@ -1,8 +1,8 @@
 # Simple stock bot
 
-This is an thought exercise regarding real time web_socket apps, message broker queues and simple bot assistants
+This is a thought exercise regarding real time web_socket apps, message broker queues and  bot assistants
 
-Throughout a command starting with "/" the user can input the one and only valid commando of "/stock={a stock symbol}" for example: `/stock=tsla.us`  and the bot will reply with the stock information obtained in csv format the www.stoq.com api and parsed to articulate the open price summary. The Bot can handle several wrong commands and fall backs
+Throughout a command starting with "/" the user can input the one and only valid command of "/stock={a stock symbol}" for example: `/stock=tsla.us`  and the bot will reply with the stock information obtained in csv format the www.stoq.com api and parsed to articulate the open price summary. The Bot can handle several wrong commands and fall backs
 
 **You can pass any value as stock symbol to the bot and if it finds any data it will let you know**
 
