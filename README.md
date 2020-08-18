@@ -64,6 +64,7 @@ When the user enters `/{anything but the right command}`
 
 When the user enters `/stock={anything but a stock symbol}`
 When you pass stock symbol that doesn't exists the Bot does not find any data on Stooq thus it understand that the data is missing or incomplete and prompts message according to that situation
+
 ![Invalid stock symbol](/images/invalid_stock_symbol.png)
 
 ##### Forgot to add a symbol
