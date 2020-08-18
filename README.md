@@ -51,6 +51,6 @@ Bot is a very slim class, in about 65 lines of code the bot initiates with a  `m
 **Right answer**
 When the stock command is properly used everything is sweet `/stock=aapl.us`
 
-![Valid command with valid result](/images/valid_stock.png)
+![Valid command with valid result](/images/valid_stock.png | height=)
 
 
