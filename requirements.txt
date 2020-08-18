@@ -7,4 +7,5 @@ werkzeug
 flask-login
 bson
 pika
-kumbu
+redis
+gunicorn

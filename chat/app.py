@@ -1,20 +1,22 @@
 from flask import Flask, redirect, render_template, request, url_for
 from datetime import datetime
+
 from flask_login import (LoginManager, current_user, login_required,
                          login_user, logout_user)
 from flask_socketio import SocketIO, join_room, leave_room
 from pymongo.errors import DuplicateKeyError
 
-from db import (add_room_members, get_room, get_room_members,
+from .db import (add_room_members, get_room, get_room_members,
                 get_rooms_for_user, get_user, is_room_admin, is_room_member,
                 remove_room_members, save_room, save_user, update_room, save_message, get_messages)
-from models.user import User
-from broker.publisher import Publisher
+from .models.user import User
+from .broker.publisher import Publisher
+
 
 
 app = Flask(__name__)
 app.secret_key = 'my_secret_key'
-socketio = SocketIO(app)
+socketio = SocketIO(app, message_queue='redis://localhost:6379//')
 login_manager = LoginManager()
 login_manager.init_app(app)
 
@@ -158,5 +160,4 @@ def signup():
     return render_template('signup.html', message=message)
 
 
-if __name__ == '__main__':
-    socketio.run(app, debug=True)
+

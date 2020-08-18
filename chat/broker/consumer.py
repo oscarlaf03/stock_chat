@@ -1,14 +1,13 @@
 import pika
 import time
 from ast import literal_eval
-from flask_socketio import SocketIO, emit
+from flask_socketio import SocketIO
+#from chat.app import socketio
 
 
-socketio = SocketIO( message_queue='main_queue')
-
+socketio = SocketIO(message_queue='redis://localhost:6379')
 connection = pika.BlockingConnection(pika.ConnectionParameters('localhost'))
 channel = connection.channel()
-# channel.queue_declare(queue='hello')
 channel.queue_declare(queue='main_queue', durable=True)
 
 
@@ -26,11 +25,11 @@ def should_act(body):
 
 def reply(data):
     data = get_data(data)
-    socketio.emit('bot_reply', {
+    socketio.emit('received_message', {
         'username': 'Bot_Master',
         'room': data['room'],
         'message': 'This is bot master'
-    })
+    }, room=data['room'])
 
 
 def callback(ch, method, properties, body):
@@ -42,7 +41,3 @@ def callback(ch, method, properties, body):
     ch.basic_ack(delivery_tag=method.delivery_tag)
 
 
-channel.basic_qos(prefetch_count=1)
-channel.basic_consume(queue='main_queue', on_message_callback=callback)
-print(' [*] Waiting for messages. To exit press CTRL+C')
-channel.start_consuming()
