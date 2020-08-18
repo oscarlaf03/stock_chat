@@ -6,16 +6,13 @@ import requests
 from datetime import datetime
 #from chat.app import socketio
 
-
 socketio = SocketIO(message_queue='redis://localhost:6379')
 connection = pika.BlockingConnection(pika.ConnectionParameters('localhost'))
 channel = connection.channel()
 channel.queue_declare(queue='main_queue', durable=True)
 
-
 def get_data(body):
     return literal_eval(body.decode("UTF-8"))
-
 
 def bot_signal(message):
     return message.startswith('/')
