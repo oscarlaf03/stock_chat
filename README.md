@@ -95,7 +95,8 @@ Now that you have signup enter your new username and password
 ![Login](/images/login.png)
 
 ##### Welcome
-Your home page looks different when you are logged in. Since you are new here you are not a member of any chat room so might as well create a new chatroom, 
+Your home page looks different when you are logged in. Since you are new here you are not a member of any chat room so might as well create a new chatroom
+
 ![Logged](/images/hom_logged.png)
 
 ##### Create a Room
