@@ -3,6 +3,7 @@
 
 <head>
     <meta charset="UTF-8">
+    <link rel="stylesheet" type="text/css" href="{{ url_for('static',filename='styles/style.css') }}">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Stock Chat</title>
 </head>
@@ -10,19 +11,21 @@
 <body>
     <h1>Welcome to Login</h1>
     <h3>{{message}}</h3>
-    <form method='post' action="/login">
-        <div class="form-pair">
-            <label for="">Username</label>
-            <input name='username' type="text">
-        </div>
-        <div class="form-pair">
-            <label for="">Password</label>
-            <input name='password' type="password">
-        </div>
-        <div class="form-pair">
-            <button type="submit">Submit</button>
-        </div>
-    </form>
+    <div class="container">
+        <form method='post' action="/login">
+            <div class="form-pair">
+                <label for="">Username</label>
+                <input name='username' type="text">
+            </div>
+            <div class="form-pair">
+                <label for="">Password</label>
+                <input name='password' type="password">
+            </div>
+            <div class="form-pair">
+                <button type="submit">Submit</button>
+            </div>
+        </form>
+    </div>
     <button><a href="/">Home</a></button>
 </body>
 

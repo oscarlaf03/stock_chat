@@ -4,6 +4,8 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" type="text/css" href="{{ url_for('static',filename='styles/style.css') }}">
+
     <title>Create Room stock chat app</title>
 </head>
 
@@ -11,15 +13,19 @@
     <h1>Create Room</h1>
     <h3>{{message}}</h3>
     <h2>Don't forger to add your friends so you can chat together</h2>
-    <form method='post'>
-        <label for="">Room Name:</label>
-        <input name='room_name' type="text">
-        <br>
-        <label for="">Members:</label>
-        <input name='members' type="text">
-        <br>
-        <button type='submit'>Submit</button>
-    </form>
+    <div class="container">
+        <form method='post'>
+            <label for="">Room Name:</label>
+            <input name='room_name' type="text">
+            <br>
+            <label for="">Members:</label>
+            <input name='members' type="text">
+            <br>
+            <button type='submit'>Submit</button>
+        </form>
+    </div>
+    <button><a href="/">Home</a></button>
+
 </body>
 
 </html>
