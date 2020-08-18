@@ -146,7 +146,7 @@ def load_user(username):
     return get_user(username)
 
 
-@app.route('/signup', methods=['GET', 'POST'])
+@app.route('/signup/', methods=['GET', 'POST'])
 def signup():
     message = ''
     if request.method == 'POST':
