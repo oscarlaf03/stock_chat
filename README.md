@@ -14,10 +14,10 @@ Flask app that enables chat messaging via `socket.io`  it supports user authenti
 
 The broker module initiates a queue via `pika` and `RabbitMQ`, user's messages are pushed  via a `Publisher` class into the queue to be picked up by a `Consumer`, the consumer acts as a middle-ware and knows when and when no to ask for a reply from the `Bot`
 
-Whenever a message starts with "/" the consumer asks the Bot for an answer emits the answer back to the chat room using `redis` and `socketio` 
+Whenever a message starts with "/" the consumer asks the Bot for an answer and emits the answer back to the chat room using `redis` and `socketio` 
 
 #### Bot
-Bot is a very slim class, in about 65 lines of code the bot initiates with a  `message` and a `username` of who send that message and can interpret whether or not the command is valid and if there is data for the given stock symbol
+Bot is a very slim class, in about 65 lines of code the bot initiates with a  `message` and a `username` of who send that message. The bot can interpret whether or not the command is valid and if there is complete data for the given stock symbol
 
 ### Requirements:
 * RabbitMQ must be installed
@@ -41,7 +41,7 @@ Bot is a very slim class, in about 65 lines of code the bot initiates with a  `m
   - `pipenv install -r requirements.txt`
 2. Start the server using the make command from the root folder:
   - `make runserver`
-3. On another terminal start the worker with make command folder.In order for the Bot to work this worker must be running:
+3. On another terminal start the worker with make command folder. In order for the Bot to work this worker must be running:
   - `make runwoker`
 
 ### Running Tests:
@@ -63,7 +63,7 @@ When the user enters `/{anything but the right command}`
 ##### Bad Stock symbol Command
 
 When the user enters `/stock={anything but a stock symbol}`
-When you pass stock symbol that doesn't exists the Bot does not find any data on Stooq thus it understand that the data is missing or incomplete and prompts message according to that situation
+When you pass stock symbol that doesn't exists the Bot does not find any data on `Stooq` thus it understand that the data is missing or incomplete and prompts message according to that situation
 
 ![Invalid stock symbol](/images/invalid_stock_symbol.png)
 
