@@ -1,5 +1,5 @@
 flask
-flask-socket.io
+flask-socketio
 eventlet
 pymongo
 dnspython
