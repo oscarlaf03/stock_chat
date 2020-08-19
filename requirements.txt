@@ -3,6 +3,7 @@ flask-socketio
 eventlet
 pymongo
 dnspython
+requests
 werkzeug
 flask-login
 pika

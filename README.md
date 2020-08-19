@@ -33,6 +33,7 @@ Bot is a very slim class, in about 65 lines of code the bot initiates by receivi
   * dnspython
   * werkzeug
   * flask-login  
+  * requests
   * bson
   * pika
   * redis
@@ -42,9 +43,9 @@ Bot is a very slim class, in about 65 lines of code the bot initiates by receivi
 ### How to run:
 1. Install requirements from the root folder using **pipenv** so you can take advantage of the tested Pipfile.lock file. In order to install directly from the Pipfile.lock file and ignore the regular "Pipfile" you must use this command:
   - `pipenv install --ignore-pipfile`
-2. Start the server using the make command from the root folder:
+2. Start the server using the make command from the root folder **from the pipenv shell**:
   - `make runserver`
-3. On another terminal start the worker with make command folder. In order for the Bot to work this worker must be running:
+3. On another terminal start the worker with make command folder **from the pipenv shell**. In order for the Bot to work this worker must be running:
   - `make runwoker`
 
 ### Running Tests:
